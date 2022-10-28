@@ -1,16 +1,28 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import { checkIsAuth, logout } from '../redux/slices/authSlice';
 
 export const Navbar = () => {
-  const isAuth = true;
+  const dispatch = useDispatch();
+
+  const isAuth = useSelector(checkIsAuth);
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    window.localStorage.removeItem('token');
+    toast('You are logout');
+  };
 
   const activeStyle = {
     color: 'white',
   };
   return (
     <div className="flex justify-between items-center py-4 ">
-      <span className="flex justify-center items-center w-6 h-6 bg-gray-400 rounded-sm text-xs text-white">
-        E
+      <span className="flex justify-center items-center  bg-gray-400 rounded-sm text-xs text-white font-bold px-6 py-2">
+        MERN
       </span>
       {isAuth && (
         <ul className="flex gap-8">
@@ -45,12 +57,14 @@ export const Navbar = () => {
           </li>
         </ul>
       )}
-      <div className="flex justify-center items-center text-white rounded-sm ">
+      <div className="flex justify-center items-center text-white rounded-sm">
         {isAuth ? (
-          <button className="bg-red-500 px-5 py-1">Logout</button>
+          <button onClick={logoutHandler} className="bg-red-500 px-5 py-1">
+            Logout
+          </button>
         ) : (
           <Link to="/login" className="bg-green-500 px-5 py-1">
-            Login Now
+            Login
           </Link>
         )}
       </div>

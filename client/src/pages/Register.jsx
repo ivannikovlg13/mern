@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
-import { registerUser } from '../redux/slices/authSlice';
+import { registerUser, checkIsAuth } from '../redux/slices/authSlice';
 
 export const Register = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { status } = useSelector((state) => state.auth);
+  const isAuth = useSelector(checkIsAuth);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (status) toast(status);
+    if (isAuth) navigate('/');
+    console.log('Rerender');
+  }, [status, isAuth, navigate]);
 
   const handleSubmit = () => {
     try {
