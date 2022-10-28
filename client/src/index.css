@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Ubuntu', sans-serif;
+    background: #084549;
+    background: -webkit-linear-gradient(to right, #1d7892, #084549);
+    background: linear-gradient(to right, #1d7892, #084549);
+    min-height: 100vh;
+  }
+}
