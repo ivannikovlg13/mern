@@ -21,7 +21,7 @@ export const Navbar = () => {
   };
   return (
     <div className="flex justify-between items-center py-4 ">
-      <span className="flex justify-center items-center  bg-gray-400 rounded-sm text-xs text-white font-bold px-6 py-2">
+      <span className="flex justify-center items-center  bg-gray-900 rounded-sm text-xs text-white font-bold px-6 py-2">
         MERN
       </span>
       {isAuth && (
