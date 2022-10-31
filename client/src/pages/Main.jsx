@@ -22,7 +22,7 @@ export const Main = () => {
       <div className="flex justify-between gap-8">
         <div className="flex flex-col gap-10 basis-4/5">
           {posts?.map((post, index) => (
-            <PostItem key={index} {...post} />
+            <PostItem key={index} post={post} />
           ))}
         </div>
         <div className="basis-1/5">
