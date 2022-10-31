@@ -1,5 +1,12 @@
 import { Router } from 'express';
-import { createPost, getAll, getById } from '../controllers/posts.js';
+import {
+  createPost,
+  getAll,
+  getById,
+  getMyPosts,
+  removePost,
+  updatePost,
+} from '../controllers/posts.js';
 import { checkAuth } from '../utils/checkAuth.js';
 const router = new Router();
 
@@ -11,5 +18,14 @@ router.get('/', getAll);
 
 //Get Post  By Id
 router.get('/:id', getById);
+
+//Get My Posts
+router.get('/user/me', checkAuth, getMyPosts);
+
+//Delete Post
+router.delete('/:id', checkAuth, removePost);
+
+//Update Post
+router.put('/:id', checkAuth, updatePost);
 
 export default router;

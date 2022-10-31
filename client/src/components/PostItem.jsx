@@ -5,7 +5,7 @@ import Moment from 'react-moment';
 
 export const PostItem = ({ post }) => {
   if (!post) {
-    return <div className="text-xl text-center text-white py-10">Posts do not exist</div>;
+    return <div>Posts do not exist</div>;
   }
   return (
     <Link to={`/${post._id}`}>

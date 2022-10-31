@@ -72,3 +72,59 @@ export const getById = async (req, res) => {
     });
   }
 };
+
+export const getMyPosts = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    const list = await Promise.all(
+      user.posts.map((post) => {
+        return Post.findById(post._id);
+      }),
+    );
+    res.json(list);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const removePost = async (req, res) => {
+  try {
+    const post = await Post.findByIdAndDelete(req.params.id);
+    if (!post) {
+      return res.json({
+        message: 'Post not found',
+      });
+    }
+    await User.findByIdAndUpdate(req.userId, {
+      $pull: { posts: req.params.id },
+    });
+
+    res.json({
+      message: 'Post has been deleted',
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const updatePost = async (req, res) => {
+  try {
+    const { title, text, id } = req.body;
+    const post = await Post.findById(id);
+
+    if (req.files) {
+      let fileName = Date.now().toString() + req.files.image.name;
+      const __dirname = dirname(fileURLToPath(import.meta.url));
+      req.files.image.mv(path.join(__dirname, '..', 'uploads', fileName));
+      post.imgUrl = fileName || '';
+    }
+
+    post.title = title;
+    post.text = text;
+
+    await post.save();
+
+    res.json(post);
+  } catch (error) {
+    res.json({ message: 'Что-то пошло не так.' });
+  }
+};

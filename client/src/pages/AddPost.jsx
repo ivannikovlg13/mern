@@ -57,6 +57,7 @@ export const AddPost = () => {
       </label>
       <div className="flex gap-8 items-center justify-center mt-4">
         <button
+          type="button"
           onClick={submitHandler}
           className="flex justify-center items-center bg-green-400 text-lg text-white rounded-sm py-2 px-4">
           Add Post
