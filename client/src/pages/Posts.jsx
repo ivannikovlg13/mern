@@ -19,7 +19,7 @@ export const Posts = () => {
     return <div className="text-xl text-center text-white py-10">You don't have posts</div>;
   }
   return (
-    <div className="w-1/2 mx-auto py-10 flex flex-col gap-10">
+    <div className="w-3/4 mx-auto py-10 flex flex-col gap-10">
       {posts?.map((post, index) => (
         <PostItem key={index} post={post} />
       ))}

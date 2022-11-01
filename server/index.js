@@ -6,6 +6,7 @@ import fileUpload from 'express-fileupload';
 
 import authRoute from './routes/auth.js';
 import postRoute from './routes/posts.js';
+import commentsRoute from './routes/comments.js';
 
 const app = express();
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(express.json());
 //routes
 app.use('/api/auth', authRoute);
 app.use('/api/posts', postRoute);
+app.use('/api/comments', commentsRoute);
 
 async function start() {
   try {

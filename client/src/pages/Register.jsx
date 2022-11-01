@@ -17,7 +17,6 @@ export const Register = () => {
   useEffect(() => {
     if (status) toast(status);
     if (isAuth) navigate('/');
-    console.log('Rerender');
   }, [status, isAuth, navigate]);
 
   const handleSubmit = () => {

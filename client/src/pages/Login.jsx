@@ -16,7 +16,9 @@ export const Login = () => {
 
   useEffect(() => {
     if (status) toast(status);
-    if (isAuth) navigate('/');
+    if (isAuth) {
+      navigate('/');
+    }
   }, [status, isAuth, navigate]);
 
   const handleSubmit = () => {

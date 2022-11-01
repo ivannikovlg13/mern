@@ -10,7 +10,7 @@ export const createPost = createAsyncThunk('post/createPost', async (params) => 
   }
 });
 
-export const getAllPosts = createAsyncThunk('posts/getAllPosts', async () => {
+export const getAllPosts = createAsyncThunk('post/getAllPosts', async () => {
   try {
     const { data } = await axios.get('/posts');
     return data;
@@ -19,7 +19,7 @@ export const getAllPosts = createAsyncThunk('posts/getAllPosts', async () => {
   }
 });
 
-export const removePost = createAsyncThunk('posts/removePost', async (id) => {
+export const removePost = createAsyncThunk('post/removePost', async (id) => {
   try {
     const { data } = await axios.delete(`/posts/${id}`, id);
     return data;
@@ -27,7 +27,7 @@ export const removePost = createAsyncThunk('posts/removePost', async (id) => {
     console.log(error);
   }
 });
-export const updatePost = createAsyncThunk('posts/updatePost', async (updatedPost) => {
+export const updatePost = createAsyncThunk('post/updatePost', async (updatedPost) => {
   try {
     const { data } = await axios.put(`/posts/${updatedPost.id}`, updatedPost);
     return data;

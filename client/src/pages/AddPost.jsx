@@ -28,7 +28,7 @@ export const AddPost = () => {
     setImage('');
   };
   return (
-    <form className="w-1/3 mx-auto py-10" onSubmit={(e) => e.preventDefault()}>
+    <form className="sm:w-1/3 w-3/4 mx-auto py-10" onSubmit={(e) => e.preventDefault()}>
       <label className="text-gray-300 py-2 bg-gray-600 text-lg mt-2 flex justify-center items-center  border border-dotted cursor-pointer">
         Upload image
         <input type="file" className="hidden" onChange={(e) => setImage(e.target.files[0])} />
@@ -59,12 +59,12 @@ export const AddPost = () => {
         <button
           type="button"
           onClick={submitHandler}
-          className="flex justify-center items-center bg-green-400 text-lg text-white rounded-sm py-2 px-4">
+          className="flex justify-center items-center bg-green-400 text-lg text-white rounded-sm py-1 px-2 sm:py-2 sm:px-4">
           Add Post
         </button>
         <button
           onClick={clearHandler}
-          className="flex justify-center items-center bg-red-500 text-lg text-white rounded-sm py-2 px-4">
+          className="flex justify-center items-center bg-red-500 text-lg text-white rounded-sm  py-1 px-2 sm:py-2 sm:px-4">
           Clear Post
         </button>
       </div>

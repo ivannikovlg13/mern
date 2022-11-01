@@ -21,16 +21,19 @@ export const Navbar = () => {
   };
   return (
     <div className="flex justify-between items-center py-4 ">
-      <span className="flex justify-center items-center  bg-gray-900 rounded-sm text-xs text-white font-bold px-6 py-2">
-        MERN
-      </span>
+      <NavLink to="/">
+        <span className="flex justify-center items-center  bg-gray-900 rounded-sm text-xs text-white font-bold px-2 py-2 sm:px-6 sm:py-2">
+          MERN
+        </span>
+      </NavLink>
+
       {isAuth && (
-        <ul className="flex gap-8">
+        <ul className="flex gap-3 sm:gap-8">
           <li>
             <NavLink
               to={'/'}
               href="/"
-              className="text-lg text-gray-500 hover:text-white"
+              className="text-sm text-gray-500 hover:text-white sm:text-lg"
               style={({ isActive }) => (isActive ? activeStyle : undefined)}
               end>
               Home
@@ -40,7 +43,7 @@ export const Navbar = () => {
             <NavLink
               to="/my-posts"
               href="/"
-              className="text-lg text-gray-500 hover:text-white"
+              className="text-sm text-gray-500 hover:text-white sm:text-lg"
               style={({ isActive }) => (isActive ? activeStyle : undefined)}>
               My Posts
             </NavLink>
@@ -50,16 +53,16 @@ export const Navbar = () => {
             <NavLink
               to="/add-post"
               href="/"
-              className="text-lg text-gray-500 hover:text-white"
+              className="text-sm text-gray-500 hover:text-white sm:text-lg"
               style={({ isActive }) => (isActive ? activeStyle : undefined)}>
               Add Post
             </NavLink>
           </li>
         </ul>
       )}
-      <div className="flex justify-center items-center text-white rounded-sm">
+      <div className="flex justify-center items-center text-white rounded-sm text-sm sm:text-lg">
         {isAuth ? (
-          <button onClick={logoutHandler} className="bg-red-500 px-5 py-1">
+          <button onClick={logoutHandler} className="bg-red-500 px-2 py-1 sm:px-4 sm:py-1">
             Logout
           </button>
         ) : (

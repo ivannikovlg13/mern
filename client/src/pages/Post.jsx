@@ -7,22 +7,32 @@ import { toast } from 'react-toastify';
 
 import axios from '../utlis/axios';
 import { removePost } from '../redux/slices/postSlice';
+import { createComment, getPostComments } from '../redux/slices/commentSlice';
+import { CommentItem } from '../components/CommentItem';
 
 export const Post = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [post, setPost] = useState(null);
-  const { user } = useSelector((state) => state.auth);
   const params = useParams();
+
+  const [post, setPost] = useState(null);
+  const [comment, setComment] = useState('');
+
+  const { user } = useSelector((state) => state.auth);
+  const { comments } = useSelector((state) => state.comment);
 
   const fetchPost = useCallback(async () => {
     const { data } = await axios.get(`/posts/${params.id}`);
     setPost(data);
   }, [params.id]);
 
-  useEffect(() => {
-    fetchPost();
-  }, [fetchPost]);
+  const fetchComments = useCallback(async () => {
+    try {
+      dispatch(getPostComments(params.id));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [params.id, dispatch]);
 
   const deletePostHandler = () => {
     try {
@@ -33,6 +43,20 @@ export const Post = () => {
       console.log(error);
     }
   };
+  const handleSubmit = () => {
+    try {
+      const postId = params.id;
+      dispatch(createComment({ postId, comment }));
+      setComment('');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPost();
+    fetchComments();
+  }, [fetchPost, fetchComments]);
 
   if (!post) {
     return <div className="text-xl text-center text-white">Loading...</div>;
@@ -42,7 +66,7 @@ export const Post = () => {
     <div>
       <button className="flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm py-2 px-4">
         <Link className="flex" to="/">
-          Back{' '}
+          Back
         </Link>
       </button>
       <div className="flex gap-10 py-8">
@@ -91,7 +115,28 @@ export const Post = () => {
             <p className="text-lg text-white opacity-60 pt-4">{post.text}</p>
           </div>
         </div>
-        <div className="w-1/3">Comments</div>
+        <div
+          className="w-1/3 p-8  flex flex-col gap-2 rounded-sm"
+          onSubmit={(e) => e.preventDefault()}>
+          <form className="flex gap-2">
+            <input
+              type="text"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              className="text-black w-full rounded-sm bg-gray-400 border p-2 text-xs outline-none placeholder:text-gray-700"
+              placeholder="Comment"
+            />
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              className="flex justify-center items-center bg-gray-600 text-white py-2 px-4">
+              Send
+            </button>
+          </form>
+          {comments?.map((comment) => (
+            <CommentItem key={comment._id} cmt={comment} />
+          ))}
+        </div>
       </div>
     </div>
   );
